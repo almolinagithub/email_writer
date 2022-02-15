@@ -1,26 +1,17 @@
+PLACEHOLDER = "[name]"
 
 
-with open("./Input/Letters/starting_letter.txt", 'r') as f:
-    line_list = f.readlines()
 
 with open("./Input/Names/invited_names.txt") as names_file:
     name_list = names_file.readlines()
 
-
-for name in name_list:
-    correct_name = line_list[0].replace("[name]", name_list[name_list.index(name)])
-    corrected_letter = line_list[0].replace("Dear [name]", correct_name)
-
-    with open("/Users/admin/Pictures/Mail Merge Project Start/Output/ReadyToSend/invitation_letter.txt", '') as f:
-        final_letter = f.write(corrected_letter + line_list[1] + line_list[2] + line_list[3])
-''' with open("/Users/admin/Pictures/Mail Merge Project Start/Output/ReadyToSend/invitation_letter.txt", 'a') as f:
-        for line in line_list:
-            f.write(line_list[1] + line_list[2] + line_list[3])
-'''
-
-
-
-
+with open("./Input/Letters/starting_letter.txt", 'r') as letter_file:
+    letter_content = letter_file.read()
+    for name in name_list:
+        stripped_name = name.strip()
+        new_letter = letter_content.replace(PLACEHOLDER, stripped_name)
+        with open(f"./Output/ReadyToSend/letter_for_{stripped_name}.txt", "w") as completed_letter:
+            completed_letter.write(new_letter)
 
 
 
